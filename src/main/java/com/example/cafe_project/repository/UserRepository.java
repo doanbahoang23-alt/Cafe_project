@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.example.cafe_project.domain.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, String> {
+public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByUsername(String username); // kiểm tra xem username đã tồn tại hay chưa;
 
     User findByUsername(String username); // tìm kiếm user theo username
