@@ -38,16 +38,19 @@
 
                         <form:form action="/register" method="POST" modelAttribute="registerUser">
                             <c:set var="errorFirstName">
-                                <form:errors path="firstName" />
+                                <form:errors path="firstName" cssClass="invalid-feedback" />
                             </c:set>
                             <c:set var="errorLastName">
-                                <form:errors path="lastName" />
+                                <form:errors path="lastName" cssClass="invalid-feedback" />
                             </c:set>
-                            <c:set var="errorUsername">
-                                <form:errors path="userName" />
+                            <c:set var="errorUserName">
+                                <form:errors path="userName" cssClass="invalid-feedback" />
+                            </c:set>
+                            <c:set var="errorPassword">
+                                <form:errors path="password" cssClass="invalid-feedback" />
                             </c:set>
                             <c:set var="errorConfirmPassword">
-                                <form:errors path="confirmPassword" />
+                                <form:errors path="confirmPassword" cssClass="invalid-feedback" />
                             </c:set>
 
                             <!-- Dòng 1: Họ và Tên -->
@@ -56,20 +59,21 @@
                                     <div class="form-floating">
                                         <form:input type="text"
                                             class="form-control ${not empty errorFirstName ? 'is-invalid' : ''}"
-                                            id="lastName" name="lastName" placeholder="Họ đệm" required="required"
-                                            autofocus="autofocus" path="lastName" />
-                                        ${errorFirstName}
+                                            id="lastName" name="lastName" placeholder="Họ đệm" autofocus="autofocus"
+                                            path="lastName" />
+
                                         <label for="lastName" class="text-muted">Họ đệm</label>
+                                        ${errorFirstName}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <form:input type="text"
                                             class="form-control ${not empty errorLastName ? 'is-invalid' : ''}"
-                                            id="firstName" name="firstName" placeholder="Tên" required="required"
-                                            path="firstName" />
-                                        ${errorLastName}
+                                            id="firstName" name="firstName" placeholder="Tên" path="firstName" />
+
                                         <label for="firstName" class="text-muted">Tên</label>
+                                        ${errorLastName}
                                     </div>
                                 </div>
                             </div>
@@ -78,9 +82,10 @@
                             <div class="form-floating mb-3">
                                 <form:input type="text"
                                     class="form-control ${not empty errorUserName ? 'is-invalid' : ''}" id="username"
-                                    name="username" placeholder="Tên đăng nhập" required="required" path="userName" />
-                                ${errorUsername}
+                                    name="username" placeholder="Tên đăng nhập" path="userName" />
+
                                 <label for="username" class="text-muted">Tên đăng nhập (Username)</label>
+                                ${errorUserName}
                             </div>
 
                             <!-- Dòng 3: Mật khẩu & Xác nhận mật khẩu -->
@@ -89,20 +94,21 @@
                                     <div class="form-floating">
                                         <form:input type="password"
                                             class="form-control ${not empty errorPassword ? 'is-invalid' : ''}"
-                                            id="password" name="password" placeholder="Mật khẩu" required="required"
-                                            path="password" />
-                                        ${errorConfirmPassword}
+                                            id="password" name="password" placeholder="Mật khẩu" path="password" />
+
                                         <label for="password" class="text-muted">Mật khẩu</label>
+                                        ${errorPassword}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <form:input type="password"
-                                            class="form-control ${not empty errorPassword ? 'is-invalid' : ''}"
+                                            class="form-control ${not empty errorConfirmPassword ? 'is-invalid' : ''}"
                                             id="rePassword" name="rePassword" placeholder="Xác nhận mật khẩu"
-                                            required="required" path="confirmPassword" />
-                                        ${errorConfirmPassword}
+                                            path="confirmPassword" />
+
                                         <label for="rePassword" class="text-muted">Xác nhận mật khẩu</label>
+                                        ${errorConfirmPassword}
                                     </div>
                                 </div>
                             </div>

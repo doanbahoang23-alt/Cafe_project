@@ -22,7 +22,7 @@ public class RegisterValidator implements ConstraintValidator<RegisterChecked, R
         boolean valid = true;
 
         if (!user.getPassword().equals(user.getConfirmPassword())) {
-            context.buildConstraintViolationWithTemplate("Confirm password is incorrect")
+            context.buildConstraintViolationWithTemplate("Mật khảu không khớp")
                     .addPropertyNode("confirmPassword")
                     .addConstraintViolation()
                     .disableDefaultConstraintViolation();
@@ -30,8 +30,8 @@ public class RegisterValidator implements ConstraintValidator<RegisterChecked, R
         }
 
         if (this.userService.isUsernameExits(user.getUserName())) {
-            context.buildConstraintViolationWithTemplate("Email already existed")
-                    .addPropertyNode("email")
+            context.buildConstraintViolationWithTemplate("Tài khoản không hợp lệ")
+                    .addPropertyNode("userName")
                     .addConstraintViolation()
                     .disableDefaultConstraintViolation();
             valid = false;
