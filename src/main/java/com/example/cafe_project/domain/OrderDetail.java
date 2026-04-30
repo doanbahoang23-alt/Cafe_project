@@ -1,29 +1,24 @@
 package com.example.cafe_project.domain;
 
 import java.math.BigDecimal;
-
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "orderdetails")
+@Table(name = "orderdetails", uniqueConstraints = {
+        @UniqueConstraint(columnNames = { "order_id", "product_id" })
+})
 public class OrderDetail {
 
-    @EmbeddedId
-    private OrderDetailId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; // Khóa chính tự động tăng
 
-    @ManyToOne
-    @MapsId("orderId")
-    @JoinColumn(name = "orderID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
     private Order order;
 
-    @ManyToOne
-    @MapsId("productId")
-    @JoinColumn(name = "productID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
     private Product product;
 
     private String notes;
@@ -31,12 +26,30 @@ public class OrderDetail {
     private Integer quantity;
     private BigDecimal unitPrice;
 
-    public OrderDetailId getId() {
+    // --- GETTERS VÀ SETTERS ---
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(OrderDetailId id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public String getNotes() {
@@ -70,5 +83,4 @@ public class OrderDetail {
     public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
     }
-
 }

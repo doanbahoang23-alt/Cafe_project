@@ -3,6 +3,8 @@ package com.example.cafe_project.domain;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -12,17 +14,18 @@ import jakarta.persistence.Table;
 public class Category {
 
     @Id
-    private String categoryId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long categoryId;
     private String categoryName;
 
     @OneToMany(mappedBy = "category")
     private List<Product> products;
 
-    public String getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -34,5 +37,12 @@ public class Category {
         this.categoryName = categoryName;
     }
 
-    
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
 }

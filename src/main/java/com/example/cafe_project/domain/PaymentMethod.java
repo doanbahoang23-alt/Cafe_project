@@ -1,6 +1,8 @@
 package com.example.cafe_project.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -9,14 +11,15 @@ import jakarta.persistence.Table;
 public class PaymentMethod {
 
     @Id
-    private String paymentMethodId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long paymentMethodId;
     private String paymentMethodType;
 
-    public String getPaymentMethodId() {
+    public Long getPaymentMethodId() {
         return paymentMethodId;
     }
 
-    public void setPaymentMethodId(String paymentMethodId) {
+    public void setPaymentMethodId(Long paymentMethodId) {
         this.paymentMethodId = paymentMethodId;
     }
 

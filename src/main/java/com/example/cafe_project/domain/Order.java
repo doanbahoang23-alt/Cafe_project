@@ -2,45 +2,45 @@ package com.example.cafe_project.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "orders")
 public class Order {
+
     @Id
-    private String orderID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long orderID; // Đã sửa thành Long để dùng tự động tăng
+
     private LocalDateTime orderDate;
     private String status;
     private BigDecimal totalAmount;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "paymentMethodID")
     private PaymentMethod paymentMethod;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tableID")
     private CafeTable table;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userID")
     private User user;
 
-    @OneToMany(mappedBy = "order")
-    private List<OrderDetail> orderDetails;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderDetail> orderDetails = new ArrayList<>();
 
-    // getters and setters
-    public String getOrderID() {
+    // --- GETTERS VÀ SETTERS ---
+
+    public Long getOrderID() {
         return orderID;
     }
 
-    public void setOrderID(String orderID) {
+    public void setOrderID(Long orderID) {
         this.orderID = orderID;
     }
 
@@ -68,4 +68,35 @@ public class Order {
         this.totalAmount = totalAmount;
     }
 
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public CafeTable getTable() {
+        return table;
+    }
+
+    public void setTable(CafeTable table) {
+        this.table = table;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
 }

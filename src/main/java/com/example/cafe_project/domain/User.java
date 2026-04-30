@@ -2,6 +2,8 @@ package com.example.cafe_project.domain;
 
 import java.util.List;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -13,7 +15,8 @@ import jakarta.persistence.Table;
 public class User {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String fullname;
     private String password;
     private String username;
@@ -25,11 +28,11 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -55,6 +58,22 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
 }

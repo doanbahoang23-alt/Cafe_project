@@ -42,7 +42,7 @@
                             </div>
                         </c:if>
 
-                        <form action="${pageContext.request.contextPath}/login" method="POST">
+                        <form action="/login" method="POST">
 
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="username" name="username"
@@ -72,8 +72,14 @@
                                     khẩu?</a>
                             </div>
 
-                            <div class="d-grid mt-2">
+                            <div class="d-grid mt-2 gap-2">
                                 <button type="submit" class="btn btn-cafe btn-lg">ĐĂNG NHẬP</button>
+
+                                <!-- Đường dẫn đăng ký tài khoản -->
+                                <a href="/register" class="btn btn-link text-decoration-none text-muted mt-1"
+                                    style="font-size: 0.9rem;">
+                                    Chưa có tài khoản? <span class="fw-bold" style="color: #8E5431;">Đăng ký ngay</span>
+                                </a>
                             </div>
                         </form>
                     </div>

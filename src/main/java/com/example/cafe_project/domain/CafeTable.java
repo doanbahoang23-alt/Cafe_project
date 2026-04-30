@@ -1,6 +1,8 @@
 package com.example.cafe_project.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -9,15 +11,16 @@ import jakarta.persistence.Table;
 public class CafeTable {
 
     @Id
-    private String tableId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long tableId;
     private Integer status;
     private String tableNumber;
 
-    public String getTableId() {
+    public Long getTableId() {
         return tableId;
     }
 
-    public void setTableId(String tableId) {
+    public void setTableId(Long tableId) {
         this.tableId = tableId;
     }
 
