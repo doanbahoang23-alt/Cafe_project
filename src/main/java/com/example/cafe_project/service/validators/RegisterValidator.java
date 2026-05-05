@@ -22,7 +22,7 @@ public class RegisterValidator implements ConstraintValidator<RegisterChecked, R
         boolean valid = true;
 
         if (!user.getPassword().equals(user.getConfirmPassword())) {
-            context.buildConstraintViolationWithTemplate("Mật khảu không khớp")
+            context.buildConstraintViolationWithTemplate("Mật khẩu không khớp")
                     .addPropertyNode("confirmPassword")
                     .addConstraintViolation()
                     .disableDefaultConstraintViolation();
