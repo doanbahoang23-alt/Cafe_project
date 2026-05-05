@@ -35,13 +35,9 @@
                                 Sai tên đăng nhập hoặc mật khẩu!
                             </div>
                         </c:if>
-                        <c:if test="${not empty param.logout}">
-                            <div class="alert alert-success py-2 text-center" role="alert"
-                                style="font-size: 0.9rem; border-radius: 10px;">
-                                Đã đăng xuất an toàn.
-                            </div>
+                        <c:if test="${param.logout != null}">
+                            <div class="my-2" style="color: red;">logout seccess</div>
                         </c:if>
-
                         <form action="/login" method="POST">
 
                             <div class="form-floating mb-3">
