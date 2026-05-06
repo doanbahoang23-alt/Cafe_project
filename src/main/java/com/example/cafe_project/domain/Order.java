@@ -13,8 +13,7 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderID; // Đã sửa thành Long để dùng tự động tăng
-
+    private Long orderID; 
     private LocalDateTime orderDate;
     private String status;
     private BigDecimal totalAmount;

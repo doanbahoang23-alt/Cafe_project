@@ -1,0 +1,80 @@
+package com.example.cafe_project.controller.admin;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.example.cafe_project.domain.CafeTable;
+import com.example.cafe_project.domain.Category;
+import com.example.cafe_project.service.CafeTableService;
+import com.example.cafe_project.service.CategoryService;
+import com.example.cafe_project.service.ProductService;
+
+@Controller
+public class CafeTableController {
+    private final CafeTableService cafeTableService;
+    private final CategoryService categoryService;
+    private final ProductService productService;
+
+    public CafeTableController(CafeTableService cafeTableService, CategoryService categoryService,
+            ProductService productService) {
+        this.cafeTableService = cafeTableService;
+        this.categoryService = categoryService;
+        this.productService = productService;
+    }
+
+    @PostMapping("/admin/cafeTable")
+    public String CafeTableAction(Model model, @ModelAttribute("newCafeTable") CafeTable cafeTable) {
+        cafeTable.setStatus(0);
+        this.cafeTableService.handleSaveCafeTable(cafeTable);
+
+        return "redirect:/admin/category";
+    }
+
+    @GetMapping("/admin/cafeTable/edit/{id}")
+    public String editCafeTablePage(@PathVariable("id") int id, Model model) {
+        // 1. Lấy dữ liệu của Bàn
+        CafeTable existingCafeTable = this.cafeTableService.getCafeTableByCafeTableId(id);
+        List<CafeTable> cafeTables = this.cafeTableService.getAllCafeTable();
+
+        // 2. LẤY LẠI DỮ LIỆU CỦA DANH MỤC (Bắt buộc để trang JSP không bị lỗi)
+        List<Category> categories = this.categoryService.getAllCategory();
+        Map<Long, Long> productCountMap = new HashMap<>();
+        for (Category c : categories) {
+            long count = productService.countProductByCategory(c.getCategoryId());
+            productCountMap.put(c.getCategoryId(), count);
+        }
+
+        // --- Model của Bàn ---
+        model.addAttribute("newCafeTable", existingCafeTable); // Ném bàn cũ vào form
+        model.addAttribute("ListCafeTable", cafeTables);
+
+        // --- Model của Danh mục ---
+        model.addAttribute("newCategory", new Category());
+        model.addAttribute("ListCategory", categories);
+        model.addAttribute("productCountMap", productCountMap);
+
+        return "admin/user/category";
+    }
+
+    @GetMapping("admin/cafeTable/delete/{id}")
+    public String deleteCafeTable(@PathVariable("id") int id, Model model) {
+        CafeTable existingCafeTable = this.cafeTableService.getCafeTableByCafeTableId(id);
+        this.cafeTableService.deleteCafeTableById(id);
+        List<CafeTable> cafeTables = this.cafeTableService.getAllCafeTable();
+
+        model.addAttribute("newCafeTable", existingCafeTable);
+
+        model.addAttribute("ListCafeTable", cafeTables);
+
+        return "redirect:/admin/category";
+    }
+
+}

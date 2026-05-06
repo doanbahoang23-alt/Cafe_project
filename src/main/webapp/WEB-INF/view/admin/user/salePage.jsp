@@ -207,9 +207,16 @@
                                 <div class="col-xl-4 col-lg-4">
                                     <div class="card h-100 border-success">
                                         <div class="card-body d-flex flex-column p-3">
-                                            <h6 class="border-bottom pb-3 mb-3 fw-bold">
-                                                Chi tiết bàn: <span class="text-success fs-5 ms-1">Bàn 05</span>
-                                            </h6>
+                                            <div
+                                                class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
+                                                <h6 class="mb-0 fw-bold">
+                                                    Chi tiết bàn: <span class="text-success fs-5 ms-1">Bàn 05</span>
+                                                </h6>
+                                                <button class="btn btn-sm btn-outline-secondary" type="button"
+                                                    data-bs-toggle="modal" data-bs-target="#selectTableModal">
+                                                    <i class="bi bi-grid-3x3-gap-fill me-1"></i> Chọn bàn
+                                                </button>
+                                            </div>
 
                                             <!-- Bảng món ăn -->
                                             <div class="table-responsive flex-grow-1 mb-3 pos-scroll">
@@ -539,6 +546,58 @@
                                     </div>
 
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="selectTableModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content border-0 shadow-lg">
+                            <div class="modal-header bg-success text-white py-2">
+                                <h5 class="modal-title fs-6 fw-bold"><i class="bi bi-grid-3x3-gap-fill me-2"></i>Chọn /
+                                    Đổi Bàn</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body p-4">
+                                <label class="form-label fw-bold" style="color: var(--text-dark);">Sơ đồ bàn
+                                    nhanh</label>
+
+                                <div class="row g-2">
+                                    <div class="col-3"><button class="btn btn-outline-secondary w-100 py-2">Bàn
+                                            01</button></div>
+                                    <div class="col-3"><button class="btn btn-secondary w-100 py-2" disabled>Bàn
+                                            02</button></div>
+                                    <div class="col-3"><button class="btn btn-outline-secondary w-100 py-2">Bàn
+                                            03</button></div>
+                                    <div class="col-3"><button class="btn btn-outline-secondary w-100 py-2">Bàn
+                                            04</button></div>
+                                    <div class="col-3"><button class="btn btn-success w-100 py-2 shadow-sm">Bàn
+                                            05</button></div>
+                                    <div class="col-3"><button class="btn btn-outline-secondary w-100 py-2">Bàn
+                                            06</button></div>
+                                    <div class="col-3"><button class="btn btn-outline-secondary w-100 py-2">Bàn
+                                            07</button></div>
+                                    <div class="col-3"><button class="btn btn-outline-secondary w-100 py-2">Bàn
+                                            08</button></div>
+                                </div>
+
+                                <div class="mt-4 pt-3 border-top text-muted small d-flex justify-content-center gap-3">
+                                    <div><span class="badge bg-white border text-dark me-1"
+                                            style="width: 15px; height: 15px; display: inline-block;"></span> Trống
+                                    </div>
+                                    <div><span class="badge bg-secondary me-1"
+                                            style="width: 15px; height: 15px; display: inline-block;"></span> Có khách
+                                    </div>
+                                    <div><span class="badge bg-success me-1"
+                                            style="width: 15px; height: 15px; display: inline-block;"></span> Đang chọn
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer py-2 bg-light">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy
+                                    bỏ</button>
+                                <button type="button" class="btn btn-success px-4">Xác nhận</button>
                             </div>
                         </div>
                     </div>
