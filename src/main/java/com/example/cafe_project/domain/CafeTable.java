@@ -15,6 +15,7 @@ public class CafeTable {
     private Long tableId;
     private Integer status;
     private String tableNumber;
+    private Integer capacity;
 
     public Long getTableId() {
         return tableId;
@@ -38,6 +39,14 @@ public class CafeTable {
 
     public void setTableNumber(String tableNumber) {
         this.tableNumber = tableNumber;
+    }
+
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
     }
 
 }
