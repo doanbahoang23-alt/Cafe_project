@@ -29,27 +29,27 @@
                             Main Menu
                         </span>
 
-                        <a href="/admin"
+                        <a href="/employee/dashboard"
                             class="nav-link d-flex align-items-center px-3 py-2 ${activeMenu == 'dasboard' ? activeClass : inactiveClass}">
                             <i class="me-3 fs-5 bi bi-house-door"></i> Trang chủ
                         </a>
 
-                        <a href="/admin/product/sales"
+                        <a href="/employee/product/sales"
                             class="nav-link d-flex align-items-center px-3 py-2 ${activeMenu == 'sales' ? activeClass : inactiveClass}">
                             <i class="me-3 fs-5 bi bi-cash-stack"></i> Bán hàng
                         </a>
 
-                        <a href="/admin/revenue_report"
+                        <a href="/employee/revenue_report"
                             class="nav-link d-flex align-items-center px-3 py-2 ${activeMenu == 'revenueReport' ? activeClass : inactiveClass}">
                             <i class="me-3 fs-5 bi bi-graph-up"></i> Báo cáo doanh thu
                         </a>
 
-                        <a href="/admin/category"
+                        <a href="/employee/category"
                             class="nav-link d-flex align-items-center px-3 py-2 ${activeMenu == 'categories' ? activeClass : inactiveClass}">
                             <i class="me-3 fs-5 bi bi-collection"></i> Danh mục
                         </a>
 
-                        <a href="/admin/product"
+                        <a href="/employee/product"
                             class="nav-link d-flex align-items-center px-3 py-2 ${activeMenu == 'products' ? activeClass : inactiveClass}">
                             <i class="me-3 fs-5 bi bi-cup-hot"></i> Sản phẩm
                         </a>

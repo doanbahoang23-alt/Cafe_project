@@ -136,12 +136,12 @@
                                                                 <td class="text-center">${product.amount}</td>
                                                                 <td class="text-end">
                                                                     <div class="btn-group">
-                                                                        <a href="/admin/product/edit/${product.productId}"
+                                                                        <a href="/employee/product/edit/${product.productId}"
                                                                             class="btn btn-outline-primary px-2 py-1"
                                                                             title="Sửa">
                                                                             <i class="bi bi-pencil"></i>
                                                                         </a>
-                                                                        <a href="/admin/product/delete/${product.productId}"
+                                                                        <a href="/employee/product/delete/${product.productId}"
                                                                             class="btn btn-outline-danger px-2 py-1"
                                                                             title="Xóa"
                                                                             onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm: ${product.productName} không?');">
@@ -173,7 +173,7 @@
                                             </div>
 
                                             <form:form id="product-form" class="flex-grow-1 d-flex flex-column"
-                                                method="POST" action="/admin/product" modelAttribute="newProduct"
+                                                method="POST" action="/employee/product" modelAttribute="newProduct"
                                                 enctype="multipart/form-data">
                                                 <form:hidden path="productId" id="form-product-id" />
                                                 <div class="mb-3">
@@ -253,7 +253,7 @@
                                                         </c:choose>
                                                     </button>
 
-                                                    <a href="/admin/product" class="btn btn-outline-secondary">
+                                                    <a href="/employee/product" class="btn btn-outline-secondary">
                                                         <i class="bi bi-x-lg"></i> Hủy
                                                     </a>
                                                 </div>

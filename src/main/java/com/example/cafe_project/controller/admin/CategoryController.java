@@ -30,7 +30,7 @@ public class CategoryController {
         this.cafeTableService = cafeTableService;
     }
 
-    @GetMapping("/admin/category")
+    @GetMapping("/employee/category")
     public String getAdminCategoryPage(Model model, @ModelAttribute("newCategory") Category newCategory,
             @ModelAttribute("newCafeTable") CafeTable newCafeTable) {
         List<Category> categories = this.categoryService.getAllCategory();
@@ -49,14 +49,14 @@ public class CategoryController {
         return "admin/user/category";
     }
 
-    @PostMapping("/admin/category")
+    @PostMapping("/employee/category")
     public String CategoryAddAction(Model model, @ModelAttribute("newCategory") Category category) {
         this.categoryService.handleSaveCategory(category);
 
-        return "redirect:/admin/category";
+        return "redirect:/employee/category";
     }
 
-    @GetMapping("admin/category/edit/{id}")
+    @GetMapping("/employee/category/edit/{id}")
     public String editCategoryPage(@PathVariable("id") int id, Model model) {
         Category existingCategory = this.categoryService.getCategoryByCategoryId(id);
         List<Category> categories = this.categoryService.getAllCategory();
@@ -68,7 +68,7 @@ public class CategoryController {
         return "admin/user/category";
     }
 
-    @GetMapping("admin/category/delete/{id}")
+    @GetMapping("/employee/category/delete/{id}")
     public String deleteCategory(@PathVariable("id") int id, Model model) {
         Category existingCategory = this.categoryService.getCategoryByCategoryId(id);
         this.categoryService.deleteCategoryById(id);
@@ -78,7 +78,7 @@ public class CategoryController {
 
         model.addAttribute("ListCategory", categories);
 
-        return "redirect:/admin/category";
+        return "redirect:/employee/category";
     }
 
 }

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class RevenueReportController {
-    @GetMapping("/admin/revenue_report")
+    @GetMapping("/employee/revenue_report")
     public String getProductDashboard() {
         return "admin/user/revenueReport";
     }
