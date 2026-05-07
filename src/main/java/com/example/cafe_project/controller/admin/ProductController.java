@@ -32,7 +32,7 @@ public class ProductController {
         this.uploadService = uploadService;
     }
 
-    @GetMapping("/admin/product")
+    @GetMapping("/employee/product")
     public String getAdminProductPage(Model model, @ModelAttribute("newProduct") Product newProduct) {
         List<Category> categories = this.categoryService.getAllCategory();
         List<Product> products = this.productService.getAllProduct();
@@ -42,17 +42,17 @@ public class ProductController {
         return "admin/user/product";
     }
 
-    @PostMapping("/admin/product")
+    @PostMapping("/employee/product")
     public String ProductAction(Model model, @ModelAttribute("newProduct") Product product,
             @RequestParam("ProductImage") MultipartFile file) {
 
         String images = this.uploadService.handleSaveUploadFile(file, "product");
         product.setImage(images);
         this.productService.handleSaveProduct(product);
-        return "redirect:/admin/product";
+        return "redirect:/employee/product";
     }
 
-    @GetMapping("admin/product/edit/{id}")
+    @GetMapping("/employee/product/edit/{id}")
     public String editProductPage(@PathVariable("id") int id, Model model) {
         Product existingProduct = this.productService.getProductByProductId(id);
         List<Category> categories = this.categoryService.getAllCategory();
@@ -64,7 +64,7 @@ public class ProductController {
         return "admin/user/product";
     }
 
-    @GetMapping("admin/product/delete/{id}")
+    @GetMapping("/employee/product/delete/{id}")
     public String deleteProduct(@PathVariable("id") int id, Model model) {
         Product existingProduct = this.productService.getProductByProductId(id);
         this.productService.deleteProductById(id);
@@ -74,15 +74,15 @@ public class ProductController {
         model.addAttribute("ListProduct", products);
         model.addAttribute("categories", categories);
 
-        return "redirect:/admin/product";
+        return "redirect:/employee/product";
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/employee/dashboard")
     public String getDashboardPage() {
         return "admin/user/dashboard";
     }
 
-    @GetMapping("/admin/product/sales")
+    @GetMapping("/employee/product/sales")
     public String getProductSales() {
         return "admin/user/salePage";
     }

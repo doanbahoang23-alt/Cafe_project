@@ -81,7 +81,8 @@
                                         </h5>
                                     </div>
                                     <div class="card-body p-4">
-                                        <form:form action="/admin/category" method="POST" modelAttribute="newCategory">
+                                        <form:form action="/employee/category" method="POST"
+                                            modelAttribute="newCategory">
                                             <form:hidden path="categoryId" />
 
                                             <div class="mb-4">
@@ -103,7 +104,7 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </button>
-                                                <a href="/admin/category"
+                                                <a href="/employee/category"
                                                     class="btn btn-light border fw-semibold">Hủy</a>
                                             </div>
                                         </form:form>
@@ -128,7 +129,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
-                                                <a href="/admin/category" class="btn btn-primary w-100">Tải lại</a>
+                                                <a href="/employee/category" class="btn btn-primary w-100">Tải lại</a>
                                             </div>
                                         </div>
                                     </div>
@@ -160,12 +161,12 @@
                                                                 </span>
                                                             </td>
                                                             <td class="text-end pe-4">
-                                                                <a href="/admin/category/edit/${category.categoryId}"
+                                                                <a href="/employee/category/edit/${category.categoryId}"
                                                                     class="btn btn-light border btn-icon me-1"
                                                                     title="Sửa danh mục">
                                                                     <i class="bi bi-pencil-square text-primary"></i>
                                                                 </a>
-                                                                <a href="/admin/category/delete/${category.categoryId}"
+                                                                <a href="/employee/category/delete/${category.categoryId}"
                                                                     class="btn btn-light border btn-icon"
                                                                     title="Xóa danh mục">
                                                                     <i class="bi bi-trash text-danger"></i>
@@ -200,7 +201,7 @@
                                         </h5>
                                     </div>
                                     <div class="card-body p-4">
-                                        <form:form action="/admin/cafeTable" method="POST"
+                                        <form:form action="/employee/cafeTable" method="POST"
                                             modelAttribute="newCafeTable">
                                             <!-- Lấy id cũ để phân biệt thêm mới và cập nhật -->
                                             <form:hidden path="tableId" />
@@ -233,7 +234,7 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </button>
-                                                <a href="/admin/category"
+                                                <a href="/employee/category"
                                                     class="btn btn-light border fw-semibold">Hủy</a>
                                             </div>
                                         </form:form>
@@ -304,12 +305,12 @@
                                                                 </c:choose>
                                                             </td>
                                                             <td class="text-end pe-4">
-                                                                <a href="/admin/cafeTable/edit/${cafeTable.tableId}#quan-ly-ban"
+                                                                <a href="/employee/cafeTable/edit/${cafeTable.tableId}#quan-ly-ban"
                                                                     class="btn btn-light border btn-icon me-1"
                                                                     title="Sửa">
                                                                     <i class="bi bi-pencil-square text-primary"></i>
                                                                 </a>
-                                                                <a href="/admin/cafeTable/delete/${cafeTable.tableId}#quan-ly-ban"
+                                                                <a href="/employee/cafeTable/delete/${cafeTable.tableId}#quan-ly-ban"
                                                                     class="btn btn-light border btn-icon" title="Xóa">
                                                                     <i class="bi bi-trash text-danger"></i>
                                                                 </a>

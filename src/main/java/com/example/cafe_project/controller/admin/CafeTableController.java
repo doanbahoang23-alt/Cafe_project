@@ -30,15 +30,15 @@ public class CafeTableController {
         this.productService = productService;
     }
 
-    @PostMapping("/admin/cafeTable")
+    @PostMapping("/employee/cafeTable")
     public String CafeTableAction(Model model, @ModelAttribute("newCafeTable") CafeTable cafeTable) {
         cafeTable.setStatus(0);
         this.cafeTableService.handleSaveCafeTable(cafeTable);
 
-        return "redirect:/admin/category";
+        return "redirect:/employee/category";
     }
 
-    @GetMapping("/admin/cafeTable/edit/{id}")
+    @GetMapping("/employee/cafeTable/edit/{id}")
     public String editCafeTablePage(@PathVariable("id") int id, Model model) {
         // 1. Lấy dữ liệu của Bàn
         CafeTable existingCafeTable = this.cafeTableService.getCafeTableByCafeTableId(id);
@@ -64,7 +64,7 @@ public class CafeTableController {
         return "admin/user/category";
     }
 
-    @GetMapping("admin/cafeTable/delete/{id}")
+    @GetMapping("/employee/cafeTable/delete/{id}")
     public String deleteCafeTable(@PathVariable("id") int id, Model model) {
         CafeTable existingCafeTable = this.cafeTableService.getCafeTableByCafeTableId(id);
         this.cafeTableService.deleteCafeTableById(id);
@@ -74,7 +74,7 @@ public class CafeTableController {
 
         model.addAttribute("ListCafeTable", cafeTables);
 
-        return "redirect:/admin/category";
+        return "redirect:/employee/category";
     }
 
 }

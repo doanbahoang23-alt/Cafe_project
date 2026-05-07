@@ -20,12 +20,12 @@ import jakarta.servlet.DispatcherType;
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration {
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() { // mã hóa mk với thuật toán bCrypt
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public UserDetailsService userDetailsService(UserService userService) {
+    public UserDetailsService userDetailsService(UserService userService) { // lấy user từ CustomUserDetailsService
         return new CustomUserDetailsService(userService);
     }
 
@@ -65,21 +65,27 @@ public class SecurityConfiguration {
                                 "/css/**",
                                 "/js/**",
                                 "/images/**",
+                                "/admin/css/**",
+                                "/admin/js/**",
+                                "/admin/images/**",
                                 "/error",
                                 "/favicon.ico" // Rất quan trọng, trình duyệt luôn gọi cái này
                         ).permitAll()
 
-                        // 3. Phân quyền Admin
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        // 3. Phân quyền admin quản lý nhân viên
+                        .requestMatchers("/admin/employee").hasRole("ADMIN")
 
-                        // 4. Tất cả các request khác đều phải đăng nhập
+                        // 4. Phân quyền employee và admin cho các trang nội bộ
+                        .requestMatchers("/employee/**").hasAnyRole("USER", "ADMIN")
+
+                        // 5. Tất cả các request khác đều phải đăng nhập
                         .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .failureUrl("/login?error")
                         .successHandler(myAuthenticationSuccessHandler())
                         .permitAll())
-                .exceptionHandling(ex -> ex.accessDeniedPage("/access-deny"));
+                .exceptionHandling(ex -> ex.accessDeniedPage("/deny"));
 
         return http.build();
     }
