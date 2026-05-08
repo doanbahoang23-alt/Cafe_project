@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import com.example.cafe_project.service.CategoryService;
 import com.example.cafe_project.service.ProductService;
 import com.example.cafe_project.service.UploadService;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,8 +51,18 @@ public class ProductController {
     }
 
     @PostMapping("/admin/product")
-    public String handleSaveProduct(@ModelAttribute("newProduct") Product product,
-            @RequestParam("ProductImage") MultipartFile file) {
+    public String handleSaveProduct(@ModelAttribute("newProduct") @Valid Product product,
+            BindingResult bindingResult,
+            @RequestParam("ProductImage") MultipartFile file,
+            Model model) {
+
+        if (bindingResult.hasErrors()) {
+            List<Category> categories = this.categoryService.getAllCategory();
+            List<Product> products = this.productService.getAllProduct();
+            model.addAttribute("ListProduct", products);
+            model.addAttribute("categories", categories);
+            return "admin/user/product";
+        }
 
         if (!file.isEmpty()) {
             // Có file mới được upload

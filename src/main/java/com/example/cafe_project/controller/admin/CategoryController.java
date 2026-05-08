@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,8 @@ import com.example.cafe_project.domain.Category;
 import com.example.cafe_project.service.CafeTableService;
 import com.example.cafe_project.service.CategoryService;
 import com.example.cafe_project.service.ProductService;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class CategoryController {
@@ -51,7 +54,28 @@ public class CategoryController {
     }
 
     @PostMapping("/employee/category")
-    public String CategoryAddAction(Model model, @ModelAttribute("newCategory") Category category) {
+    public String CategoryAddAction(Model model, @ModelAttribute("newCategory") @Valid Category category,
+            BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            List<Category> categories = this.categoryService.getAllCategory();
+            List<CafeTable> cafeTables = this.cafeTableService.getAllCafeTable();
+            Map<Long, Long> productCountMap = new HashMap<>();
+
+            for (Category c : categories) {
+                long count = productService.countProductByCategory(c.getCategoryId());
+                productCountMap.put(c.getCategoryId(), count);
+            }
+
+            model.addAttribute("productCountMap", productCountMap);
+            model.addAttribute("ListCategory", categories);
+            model.addAttribute("ListCafeTable", cafeTables);
+
+            model.addAttribute("newCafeTable", new CafeTable()); // tránh lỗi validate
+
+            return "admin/user/category";
+        }
+
         this.categoryService.handleSaveCategory(category);
 
         return "redirect:/employee/category";
