@@ -105,6 +105,7 @@
                                                 <form:input type="text" class="form-control"
                                                     placeholder="Nhập tên danh mục (VD: Trà sữa, Cà phê...)"
                                                     path="categoryName" />
+                                                <form:errors path="categoryName" cssClass="text-danger small mt-1" />
                                             </div>
                                             <div class="d-flex gap-2">
                                                 <button type="submit" class="btn btn-success flex-grow-1">
@@ -194,8 +195,8 @@
                                         </h5>
                                     </div>
                                     <div class="card-body p-4">
-                                        <form:form action="/employee/cafeTable" method="POST"
-                                            modelAttribute="newCafeTable">
+                                        <form:form action="/employee/cafeTable#quan-ly-ban" method="POST"
+                                            modelAttribute="newCafeTable" cssClass="needs-validation">
                                             <!-- Lấy id cũ để phân biệt thêm mới và cập nhật -->
                                             <form:hidden path="tableId" />
 
@@ -203,14 +204,18 @@
                                                 <label class="form-label fw-bold small text-muted">Tên bàn / Số
                                                     bàn <span class="text-danger">*</span></label>
                                                 <form:input type="text" class="form-control" path="tableNumber"
-                                                    placeholder="VD: Bàn 01, Bàn VIP..." />
+                                                    id="tableNumber" placeholder="VD: Bàn 01, Bàn VIP..." />
+                                                <form:errors path="tableNumber"
+                                                    cssClass="d-block text-danger small mt-1" />
                                             </div>
 
                                             <div class="mb-4">
                                                 <label class="form-label fw-bold small text-muted">Sức chứa
                                                     (Người)</label>
                                                 <form:input type="number" class="form-control" path="capacity"
-                                                    placeholder="VD: 4" min="1" />
+                                                    id="capacity" placeholder="VD: 4" min="1" />
+                                                <form:errors path="capacity"
+                                                    cssClass="d-block text-danger small mt-1" />
                                             </div>
 
                                             <div class="d-flex gap-2">

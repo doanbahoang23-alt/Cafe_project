@@ -293,15 +293,18 @@
                                                     phẩm</label>
                                                 <form:input type="text" class="form-control form-control-sm"
                                                     path="productName" placeholder="VD: Cà phê sữa đá" />
+                                                <form:errors path="productName" cssClass="text-danger small mt-1" />
                                             </div>
 
                                             <div class="mb-2">
                                                 <label class="form-label small fw-bold text-secondary mb-1">Danh
                                                     mục</label>
                                                 <form:select class="form-select form-select-sm" path="category">
+                                                    <form:option value="">-- Chọn danh mục --</form:option>
                                                     <form:options items="${categories}" itemValue="categoryId"
                                                         itemLabel="categoryName" />
                                                 </form:select>
+                                                <form:errors path="category" cssClass="text-danger small mt-1" />
                                             </div>
 
                                             <div class="row g-2 mb-2">
@@ -310,12 +313,14 @@
                                                         (VNĐ)</label>
                                                     <form:input type="number" min="0"
                                                         class="form-control form-control-sm" path="price" />
+                                                    <form:errors path="price" cssClass="text-danger small mt-1" />
                                                 </div>
                                                 <div class="col-5">
                                                     <label class="form-label small fw-bold text-secondary mb-1">Tồn
                                                         kho</label>
                                                     <form:input type="number" min="0"
                                                         class="form-control form-control-sm" path="amount" />
+                                                    <form:errors path="amount" cssClass="text-danger small mt-1" />
                                                 </div>
                                             </div>
 

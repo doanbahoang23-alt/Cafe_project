@@ -8,6 +8,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "category")
@@ -16,6 +18,9 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryId;
+    
+    @NotBlank(message = "Vui lòng nhập tên danh mục")
+    @Size(min = 3, max = 50, message = "Tên danh mục phải từ 3 đến 50 ký tự")
     private String categoryName;
 
     @OneToMany(mappedBy = "category")
