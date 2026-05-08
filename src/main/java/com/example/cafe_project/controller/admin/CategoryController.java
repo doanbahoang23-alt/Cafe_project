@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.cafe_project.domain.CafeTable;
 import com.example.cafe_project.domain.Category;
@@ -58,25 +59,40 @@ public class CategoryController {
 
     @GetMapping("/employee/category/edit/{id}")
     public String editCategoryPage(@PathVariable("id") int id, Model model) {
+
         Category existingCategory = this.categoryService.getCategoryByCategoryId(id);
-        List<Category> categories = this.categoryService.getAllCategory();
-
         model.addAttribute("newCategory", existingCategory);
+        model.addAttribute("newCafeTable", new CafeTable());
 
+        List<Category> categories = this.categoryService.getAllCategory();
+        Map<Long, Long> productCountMap = new HashMap<>();
+        for (Category c : categories) {
+            long count = productService.countProductByCategory(c.getCategoryId());
+            productCountMap.put(c.getCategoryId(), count);
+        }
+        model.addAttribute("productCountMap", productCountMap);
         model.addAttribute("ListCategory", categories);
+
+        List<CafeTable> cafetables = this.cafeTableService.getAllCafeTable();
+        model.addAttribute("ListCafeTable", cafetables);
 
         return "admin/user/category";
     }
 
     @GetMapping("/employee/category/delete/{id}")
-    public String deleteCategory(@PathVariable("id") int id, Model model) {
-        Category existingCategory = this.categoryService.getCategoryByCategoryId(id);
-        this.categoryService.deleteCategoryById(id);
-        List<Category> categories = this.categoryService.getAllCategory();
+    public String deleteCategory(@PathVariable("id") long id, RedirectAttributes redirectAttributes) {
 
-        model.addAttribute("newCategory", existingCategory);
+        long count = this.productService.countProductByCategory(id);
 
-        model.addAttribute("ListCategory", categories);
+        if (count > 0) {
+
+            redirectAttributes.addFlashAttribute("errorMsg",
+                    "Không thể xóa! Danh mục này đang chứa " + count + " sản phẩm.");
+        } else {
+
+            this.categoryService.deleteCategoryById(id);
+            redirectAttributes.addFlashAttribute("successMsg", "Xóa danh mục thành công!");
+        }
 
         return "redirect:/employee/category";
     }

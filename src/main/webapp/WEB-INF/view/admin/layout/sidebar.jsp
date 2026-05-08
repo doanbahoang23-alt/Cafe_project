@@ -39,7 +39,7 @@
                             <i class="me-3 fs-5 bi bi-cash-stack"></i> Bán hàng
                         </a>
 
-                        <a href="/employee/revenue_report"
+                        <a href="/admin/revenue_report"
                             class="nav-link d-flex align-items-center px-3 py-2 ${activeMenu == 'revenueReport' ? activeClass : inactiveClass}">
                             <i class="me-3 fs-5 bi bi-graph-up"></i> Báo cáo doanh thu
                         </a>
@@ -49,7 +49,7 @@
                             <i class="me-3 fs-5 bi bi-collection"></i> Danh mục
                         </a>
 
-                        <a href="/employee/product"
+                        <a href="/admin/product"
                             class="nav-link d-flex align-items-center px-3 py-2 ${activeMenu == 'products' ? activeClass : inactiveClass}">
                             <i class="me-3 fs-5 bi bi-cup-hot"></i> Sản phẩm
                         </a>
@@ -57,6 +57,11 @@
                         <a href="/admin/employee"
                             class="nav-link d-flex align-items-center px-3 py-2 ${activeMenu == 'employees' ? activeClass : inactiveClass}">
                             <i class="me-3 fs-5 bi bi-people"></i> Nhân viên
+                        </a>
+
+                        <a href="/"
+                            class="nav-link d-flex align-items-center px-3 py-2 ${activeMenu == 'home' ? activeClass : inactiveClass}">
+                            <i class="me-3 fs-5 bi bi-globe"></i> Về trang chủ
                         </a>
 
                         <div class="mt-auto mb-4 border-top border-success-subtle pt-3">

@@ -32,10 +32,19 @@ public class CafeTableController {
 
     @PostMapping("/employee/cafeTable")
     public String CafeTableAction(Model model, @ModelAttribute("newCafeTable") CafeTable cafeTable) {
-        cafeTable.setStatus(0);
+        if (cafeTable.getTableId() == null) {
+            // THÊM MỚI: status = 0
+            cafeTable.setStatus(0);
+        } else {
+            // cập nhật: Lấy lại status cũ
+            CafeTable existingTable = this.cafeTableService.getCafeTableByCafeTableId(cafeTable.getTableId());
+            if (existingTable != null) {
+                cafeTable.setStatus(existingTable.getStatus());
+            }
+        }
         this.cafeTableService.handleSaveCafeTable(cafeTable);
 
-        return "redirect:/employee/category";
+        return "redirect:/employee/category#quan-ly-ban";
     }
 
     @GetMapping("/employee/cafeTable/edit/{id}")

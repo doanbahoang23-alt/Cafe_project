@@ -32,27 +32,47 @@ public class ProductController {
         this.uploadService = uploadService;
     }
 
-    @GetMapping("/employee/product")
-    public String getAdminProductPage(Model model, @ModelAttribute("newProduct") Product newProduct) {
+    @GetMapping("/admin/product")
+    public String getAdminProductPage(Model model, @ModelAttribute("newProduct") Product newProduct,
+            @RequestParam(value = "categoryId", required = false) Integer categoryId) {
         List<Category> categories = this.categoryService.getAllCategory();
-        List<Product> products = this.productService.getAllProduct();
+        List<Product> products;
+        if (categoryId != null) {
+            products = this.productService.getProductByCategoryId(categoryId);
+        } else {
+            products = this.productService.getAllProduct();
+        }
         model.addAttribute("ListProduct", products);
         model.addAttribute("categories", categories);
         model.addAttribute("newProduct", newProduct);
         return "admin/user/product";
     }
 
-    @PostMapping("/employee/product")
-    public String ProductAction(Model model, @ModelAttribute("newProduct") Product product,
+    @PostMapping("/admin/product")
+    public String handleSaveProduct(@ModelAttribute("newProduct") Product product,
             @RequestParam("ProductImage") MultipartFile file) {
 
-        String images = this.uploadService.handleSaveUploadFile(file, "product");
-        product.setImage(images);
+        if (!file.isEmpty()) {
+            // Có file mới được upload
+            String newImageName = this.uploadService.handleSaveUploadFile(file, "product");
+            if (!newImageName.isEmpty()) {
+                product.setImage(newImageName);
+            }
+        } else {
+            // Không có file mới, kiểm tra xem có đang cập nhật không
+            if (product.getProductId() != null && product.getProductId() > 0) {
+                // Đang cập nhật và không chọn ảnh mới, giữ nguyên ảnh cũ
+                Product existingProduct = this.productService.getProductByProductId(product.getProductId().intValue());
+                product.setImage(existingProduct.getImage());
+            }
+            // Nếu là tạo mới và không có ảnh, để trống (sẽ xử lý ở service hoặc validation)
+        }
+
         this.productService.handleSaveProduct(product);
-        return "redirect:/employee/product";
+        return "redirect:/admin/product";
     }
 
-    @GetMapping("/employee/product/edit/{id}")
+    @GetMapping("/admin/product/edit/{id}")
     public String editProductPage(@PathVariable("id") int id, Model model) {
         Product existingProduct = this.productService.getProductByProductId(id);
         List<Category> categories = this.categoryService.getAllCategory();
@@ -64,7 +84,7 @@ public class ProductController {
         return "admin/user/product";
     }
 
-    @GetMapping("/employee/product/delete/{id}")
+    @GetMapping("/admin/product/delete/{id}")
     public String deleteProduct(@PathVariable("id") int id, Model model) {
         Product existingProduct = this.productService.getProductByProductId(id);
         this.productService.deleteProductById(id);
@@ -74,7 +94,7 @@ public class ProductController {
         model.addAttribute("ListProduct", products);
         model.addAttribute("categories", categories);
 
-        return "redirect:/employee/product";
+        return "redirect:/admin/product";
     }
 
     @GetMapping("/employee/dashboard")

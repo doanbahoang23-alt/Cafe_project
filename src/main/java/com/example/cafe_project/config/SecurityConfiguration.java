@@ -71,11 +71,10 @@ public class SecurityConfiguration {
                                 "/error",
                                 "/favicon.ico" // Rất quan trọng, trình duyệt luôn gọi cái này
                         ).permitAll()
-
                         // 3. Phân quyền admin quản lý nhân viên
-                        .requestMatchers("/admin/employee").hasRole("ADMIN")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
 
-                        // 4. Phân quyền employee và admin cho các trang nội bộ
+                        // 5. Employee pages: sales and shared features
                         .requestMatchers("/employee/**").hasAnyRole("USER", "ADMIN")
 
                         // 5. Tất cả các request khác đều phải đăng nhập
