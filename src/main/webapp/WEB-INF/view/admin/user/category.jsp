@@ -63,7 +63,21 @@
                     <jsp:include page="../layout/sidebar.jsp" />
 
                     <div class="flex-grow-1 p-4" style="min-height: 100vh;">
+                        <c:if test="${not empty successMsg}">
+                            <div class="alert alert-success alert-dismissible fade show shadow-sm mb-4" role="alert">
+                                <i class="bi bi-check-circle-fill me-2"></i> <strong>Thành công!</strong> ${successMsg}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        </c:if>
 
+                        <c:if test="${not empty errorMsg}">
+                            <div class="alert alert-danger alert-dismissible fade show shadow-sm mb-4" role="alert">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i> <strong>Lỗi:</strong> ${errorMsg}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        </c:if>
                         <div
                             class="page-header d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
                             <div>
@@ -113,27 +127,6 @@
                             </div>
 
                             <div class="col-lg-8">
-                                <div class="card mb-4 shadow-sm border-0">
-                                    <div class="card-body p-3">
-                                        <div class="row g-2 align-items-center">
-                                            <div class="col-md-9">
-                                                <div class="input-group">
-                                                    <span class="input-group-text bg-white border-end-0 text-muted"
-                                                        style="border-radius: 10px 0 0 10px;">
-                                                        <i class="bi bi-search"></i>
-                                                    </span>
-                                                    <input type="text" id="searchCategory"
-                                                        class="form-control border-start-0 ps-0"
-                                                        placeholder="Nhập tên danh mục muốn tìm kiếm..."
-                                                        style="border-radius: 0 10px 10px 0;">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a href="/employee/category" class="btn btn-primary w-100">Tải lại</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
                                 <div class="card shadow-sm border-0">
                                     <div class="card-body p-0">
@@ -141,7 +134,7 @@
                                             <table class="table table-hover table-custom mb-0">
                                                 <thead>
                                                     <tr>
-                                                        <th class="ps-4" style="width: 15%;">ID</th>
+
                                                         <th style="width: 50%;">Tên danh mục</th>
                                                         <th style="width: 20%;">Số lượng sản phẩm</th>
                                                         <th class="text-end pe-4" style="width: 15%;">Thao tác</th>
@@ -150,7 +143,7 @@
                                                 <tbody>
                                                     <c:forEach var="category" items="${ListCategory}">
                                                         <tr>
-                                                            <td class="ps-4 text-muted">${category.categoryId}</td>
+
                                                             <td><span
                                                                     class="fw-bold text-dark">${category.categoryName}</span>
                                                             </td>
@@ -234,7 +227,7 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </button>
-                                                <a href="/employee/category"
+                                                <a href="/employee/category#quan-ly-ban"
                                                     class="btn btn-light border fw-semibold">Hủy</a>
                                             </div>
                                         </form:form>
@@ -247,14 +240,18 @@
                                     <div
                                         class="card-header bg-white py-3 border-bottom border-light d-flex justify-content-between align-items-center">
                                         <h5 class="card-title mb-0 fs-6 fw-bold text-dark">Danh sách bàn</h5>
-                                        <span class="badge bg-primary rounded-pill px-3 py-2">Tổng: 5 bàn</span>
+
+                                        <span class="badge bg-primary rounded-pill px-3 py-2">Tổng:
+                                            ${ListCafeTable.size()}</span>
+
+
                                     </div>
                                     <div class="card-body p-0">
                                         <div class="table-responsive">
                                             <table class="table table-hover table-custom mb-0">
                                                 <thead>
                                                     <tr>
-                                                        <th class="ps-4" style="width: 10%;">ID</th>
+
                                                         <th style="width: 30%;">Tên bàn</th>
                                                         <th style="width: 20%;">Sức chứa</th>
                                                         <th style="width: 20%;">Trạng thái</th>
@@ -265,7 +262,7 @@
                                                     <c:forEach var="cafeTable" items="${ListCafeTable}">
                                                         <tr>
 
-                                                            <td class="ps-4 text-muted">1</td>
+
                                                             <td><span
                                                                     class="fw-bold text-dark">${cafeTable.tableNumber}</span>
                                                             </td>

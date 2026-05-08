@@ -29,11 +29,8 @@
                             <p class="text-muted" style="font-size: 0.9rem;">Hệ thống quản lý nội bộ</p>
                         </div>
 
-                        <c:if test="${not empty param.error}">
-                            <div class="alert alert-danger py-2 text-center" role="alert"
-                                style="font-size: 0.9rem; border-radius: 10px;">
-                                Sai tên đăng nhập hoặc mật khẩu!
-                            </div>
+                        <c:if test="${param.error != null}">
+                            <div class="my-2" style="color: red;">Invalid email or password.</div>
                         </c:if>
                         <c:if test="${param.logout != null}">
                             <div class="my-2" style="color: red;">logout seccess</div>

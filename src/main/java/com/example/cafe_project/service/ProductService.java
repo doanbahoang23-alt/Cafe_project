@@ -35,4 +35,8 @@ public class ProductService {
         return productRepository.countByCategory_CategoryId(categoryId);
     }
 
+    public List<Product> getProductByCategoryId(int categoryId) {
+        return this.productRepository.findByCategory_CategoryId(categoryId);
+    }
+
 }
