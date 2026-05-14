@@ -109,9 +109,4 @@ public class ProductController {
         return "redirect:/admin/product";
     }
 
-    @GetMapping("/employee/dashboard")
-    public String getDashboardPage() {
-        return "admin/user/dashboard";
-    }
-
 }
