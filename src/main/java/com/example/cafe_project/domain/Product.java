@@ -23,19 +23,19 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
-    
+
     @NotNull(message = "Vui lòng nhập tồn kho")
     @Min(value = 0, message = "Tồn kho không được âm")
     private Integer amount;
-    
+
     @NotNull(message = "Vui lòng nhập giá")
     @DecimalMin(value = "0.0", inclusive = false, message = "Giá phải lớn hơn 0")
     private BigDecimal price;
-    
+
     @NotBlank(message = "Vui lòng nhập tên sản phẩm")
     @Size(min = 3, max = 100, message = "Tên sản phẩm phải từ 3 đến 100 ký tự")
     private String productName;
-    
+
     private String image;
 
     @NotNull(message = "Vui lòng chọn danh mục")

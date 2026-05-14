@@ -114,9 +114,4 @@ public class ProductController {
         return "admin/user/dashboard";
     }
 
-    @GetMapping("/employee/product/sales")
-    public String getProductSales() {
-        return "admin/user/salePage";
-    }
-
 }

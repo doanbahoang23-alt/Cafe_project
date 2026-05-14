@@ -251,7 +251,7 @@
                                                             </td>
                                                             <td class="text-end fw-bold text-success">
                                                                 <fmt:formatNumber value="${product.price}" type="number"
-                                                                    pattern="###,###" />.00 ₫
+                                                                    pattern="###,###" /> ₫
                                                             </td>
                                                             <td class="text-center">${product.amount}</td>
                                                             <td class="text-end">
