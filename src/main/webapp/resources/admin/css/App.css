@@ -48,24 +48,28 @@ body {
     transition: all 0.2s !important;
 }
 
-.btn-primary, .btn-success {
+.btn-primary,
+.btn-success {
     background-color: var(--primary-color) !important;
     border-color: var(--primary-color) !important;
     box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.3);
 }
 
-.btn-primary:hover, .btn-success:hover {
+.btn-primary:hover,
+.btn-success:hover {
     background-color: var(--primary-hover) !important;
     transform: translateY(-1px);
 }
 
-.form-control, .form-select {
+.form-control,
+.form-select {
     border-radius: 10px !important;
     border: 1px solid var(--border-color) !important;
     padding: 0.6rem 1rem !important;
 }
 
-.form-control:focus, .form-select:focus {
+.form-control:focus,
+.form-select:focus {
     box-shadow: 0 0 0 3px var(--primary-bg-subtle) !important;
     border-color: var(--primary-color) !important;
 }
@@ -97,11 +101,13 @@ body {
     border: 1px solid transparent;
     height: 100%;
 }
+
 .product-card:hover {
     border-color: var(--primary-color);
     transform: translateY(-3px);
     box-shadow: var(--shadow-lg);
 }
+
 .product-img-wrapper {
     height: 120px;
     overflow: hidden;
@@ -109,12 +115,14 @@ body {
     margin-bottom: 10px;
     background-color: #f8fafc;
 }
+
 .product-img-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s;
 }
+
 .product-card:hover img {
     transform: scale(1.05);
 }
@@ -122,18 +130,21 @@ body {
 /* Sidebar Custom */
 .sidebar-custom {
     background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
-    box-shadow: 4px 0 24px rgba(0,0,0,0.05);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.05);
 }
+
 .nav-link-custom {
     color: #9ca3af !important;
     border-radius: 10px;
     margin: 4px 12px;
     transition: all 0.2s;
 }
+
 .nav-link-custom:hover {
-    background-color: rgba(255,255,255,0.05);
+    background-color: rgba(255, 255, 255, 0.05);
     color: #fff !important;
 }
+
 .nav-link-custom.active {
     background-color: var(--primary-color) !important;
     color: #fff !important;
@@ -145,9 +156,55 @@ body {
     background-color: #fff;
     border-left: 1px solid var(--border-color);
 }
+
 .bill-table th {
     font-size: 0.75rem;
     text-transform: uppercase;
     color: var(--text-gray);
     letter-spacing: 0.5px;
+}
+
+/* Container chứa các cột biểu đồ */
+#chartContainer {
+    display: flex;
+    align-items: flex-end;
+    /* Đẩy các cột xuống sát mép dưới */
+    justify-content: space-around;
+    height: 250px;
+    /* Chiều cao cố định của biểu đồ */
+    padding-bottom: 25px;
+    border-bottom: 1px solid #dee2e6;
+    /* Đường kẻ trục X */
+}
+
+/* Từng cột riêng lẻ */
+.chart-bar {
+    width: 40px;
+    /* Độ rộng của cột */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+}
+
+/* Phần màu được tô (hiển thị doanh thu) */
+.chart-bar-fill {
+    width: 100%;
+    background-color: #198754;
+    /* Màu xanh lá (chuẩn Bootstrap success) */
+    border-radius: 4px 4px 0 0;
+    /* Bo tròn 2 góc trên */
+    transition: height 0.5s ease-in-out;
+    /* Hiệu ứng mọc lên từ từ */
+}
+
+/* Nhãn ngày tháng dưới đáy */
+.chart-bar-label {
+    position: absolute;
+    bottom: -25px;
+    font-size: 12px;
+    color: #6c757d;
+    white-space: nowrap;
 }
