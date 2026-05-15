@@ -2,6 +2,9 @@ package com.example.cafe_project.controller.admin;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,17 +37,27 @@ public class ProductController {
         this.uploadService = uploadService;
     }
 
+    // <Hoàng>
     @GetMapping("/admin/product")
     public String getAdminProductPage(Model model, @ModelAttribute("newProduct") Product newProduct,
-            @RequestParam(value = "categoryId", required = false) Integer categoryId) {
+            @RequestParam(value = "categoryId", required = false) Integer categoryId,
+            @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "page", defaultValue = "1") int pageNo) {
+
+        int pageSize = 5; // Số lượng sản phẩm hiển thị trên 1 trang
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize); // pageNo - 1 vì Spring Data đếm trang từ 0
+
+        // Lấy dữ liệu đã phân trang & lọc
+        Page<Product> productPage = productService.getProductsWithFilterAndPagination(categoryId, keyword, pageable);
+
+        // Đẩy xuống JSP
+        model.addAttribute("ListProduct", productPage.getContent()); // Chỉ lấy data của trang hiện tại
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", productPage.getTotalPages());
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("categoryId", categoryId);
+
         List<Category> categories = this.categoryService.getAllCategory();
-        List<Product> products;
-        if (categoryId != null) {
-            products = this.productService.getProductByCategoryId(categoryId);
-        } else {
-            products = this.productService.getAllProduct();
-        }
-        model.addAttribute("ListProduct", products);
         model.addAttribute("categories", categories);
         model.addAttribute("newProduct", newProduct);
         return "admin/user/product";
@@ -108,5 +121,7 @@ public class ProductController {
 
         return "redirect:/admin/product";
     }
+
+    // </Hoàng>
 
 }

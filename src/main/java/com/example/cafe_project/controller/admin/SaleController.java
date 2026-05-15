@@ -11,6 +11,10 @@ import com.example.cafe_project.service.OrderService;
 import com.example.cafe_project.service.PaymentMethodService;
 import com.example.cafe_project.service.ProductService;
 import jakarta.servlet.http.HttpSession;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -45,19 +49,29 @@ public class SaleController {
         this.paymentMethodService = paymentMethodService;
     }
 
+    // <Thiện + Sơn>
     @GetMapping
-    public String getSalePage(@RequestParam(required = false) Integer categoryId,
+    public String getSalePage(
+            @RequestParam(required = false) Integer categoryId,
+            @RequestParam(required = false) String keyword, // Thêm tìm kiếm
+            @RequestParam(defaultValue = "1") int page, // Thêm trang
             @RequestParam(required = false) Long selectedTableId,
             @RequestParam(required = false) String filterStatus,
             Model model, HttpSession session) {
+
+        // 1. Xử lý Phân trang món ăn (Menu bên trái)
+        int pageSize = 6; // Hiển thị 6 món mỗi trang cho gọn giao diện POS
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
+        Page<Product> productPage = productService.getProductsWithFilterAndPagination(categoryId, keyword, pageable);
+
+        model.addAttribute("products", productPage.getContent());
+        model.addAttribute("totalPages", productPage.getTotalPages());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("categoryId", categoryId);
+
         model.addAttribute("tables", cafeTableService.getAllCafeTable());
         model.addAttribute("categories", categoryService.getAllCategory());
-
-        if (categoryId != null) {
-            model.addAttribute("products", productService.getProductByCategoryId(categoryId));
-        } else {
-            model.addAttribute("products", productService.getAllProduct());
-        }
         model.addAttribute("paymentMethods", paymentMethodService.getAllPaymentMethod());
 
         List<Order> allOrders = this.orderService.getAllOder();
@@ -146,8 +160,9 @@ public class SaleController {
         session.setAttribute("cart", cart);
         return "redirect:/employee/product/sales" + ("true".equals(openModal) ? "?openModal=true" : "");
     }
+    // </Thiện>
 
-    // 5. Hàm mới: Xử lý Đặt Bàn (Tương tác từ Modal)
+    // <Thiện + Sơn>
     @PostMapping("/book-table")
     public String bookTable(@RequestParam Long tableId,
             @RequestParam(required = false) String notes,
@@ -178,8 +193,10 @@ public class SaleController {
             return "redirect:/employee/product/sales?openModal=true";
         }
     }
+    // </Thiện + Sơn>
 
     // 3. Hàm mới: Xử lý Thanh Toán (Tương tác từ màn hình bên phải)
+    // <Sơn>
     @PostMapping("/pay-order")
     public String payOrder(@RequestParam Long orderId,
             @RequestParam Long paymentMethodId,
@@ -201,6 +218,7 @@ public class SaleController {
         model.addAttribute("order", order);
         return "admin/user/orderDetailPage"; // Tạo một file orderDetailPage.jsp riêng để thiết kế giao diện chi tiết
     }
+    // </Sơn>
 
     // Hàm phụ trợ tạo mới list nếu Session chưa có
     @SuppressWarnings("unchecked")

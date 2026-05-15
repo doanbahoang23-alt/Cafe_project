@@ -205,23 +205,28 @@
                                         <div
                                             class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
                                             <div class="d-flex align-items-center gap-3 overflow-hidden">
-                                                <span class="fw-bold text-secondary text-nowrap">Lọc theo danh
-                                                    mục:</span>
+                                                <span class="fw-bold text-secondary text-nowrap">Lọc danh mục:</span>
                                                 <div class="category-scroll" id="categoryScroll">
-                                                    <a href="/admin/product"
-                                                        class="btn-filter ${empty param.categoryId ? 'active' : ''}">Tất
+                                                    <a href="/admin/product?keyword=${keyword}"
+                                                        class="btn-filter ${empty categoryId ? 'active' : ''}">Tất
                                                         cả</a>
                                                     <c:forEach var="cat" items="${categories}">
-                                                        <a href="/admin/product?categoryId=${cat.categoryId}"
-                                                            class="btn-filter ${param.categoryId == cat.categoryId ? 'active' : ''}">
+                                                        <a href="/admin/product?categoryId=${cat.categoryId}&keyword=${keyword}"
+                                                            class="btn-filter ${categoryId == cat.categoryId ? 'active' : ''}">
                                                             ${cat.categoryName}
                                                         </a>
                                                     </c:forEach>
                                                 </div>
                                             </div>
-                                            <div class="text-muted small fst-italic">
-                                                Kho sẽ tự động đặt lại về 100 mỗi ngày.
-                                            </div>
+
+                                            <form action="/admin/product" method="GET"
+                                                class="d-flex gap-2 ms-auto flex-shrink-0" style="min-width: 250px;">
+                                                <input type="hidden" name="categoryId" value="${categoryId}" />
+                                                <input type="text" name="keyword" class="form-control form-control-sm"
+                                                    placeholder="Tìm tên món..." value="${keyword}">
+                                                <button type="submit" class="btn btn-sm btn-success text-nowrap">Tìm
+                                                    kiếm</button>
+                                            </form>
                                         </div>
 
                                         <div class="table-responsive">
@@ -274,6 +279,31 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <c:if test="${totalPages > 1}">
+                                            <nav aria-label="Page navigation" class="mt-4">
+                                                <ul class="pagination justify-content-center">
+
+                                                    <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+                                                        <a class="page-link text-success"
+                                                            href="?page=${currentPage - 1}&categoryId=${categoryId}&keyword=${keyword}">Trước</a>
+                                                    </li>
+
+                                                    <c:forEach begin="1" end="${totalPages}" var="i">
+                                                        <li class="page-item ${currentPage == i ? 'active' : ''}">
+                                                            <a class="page-link ${currentPage == i ? 'bg-success border-success text-white' : 'text-success'}"
+                                                                href="?page=${i}&categoryId=${categoryId}&keyword=${keyword}">${i}</a>
+                                                        </li>
+                                                    </c:forEach>
+
+                                                    <li
+                                                        class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
+                                                        <a class="page-link text-success"
+                                                            href="?page=${currentPage + 1}&categoryId=${categoryId}&keyword=${keyword}">Sau</a>
+                                                    </li>
+
+                                                </ul>
+                                            </nav>
+                                        </c:if>
                                     </div>
                                 </div>
 

@@ -32,6 +32,8 @@ public class OrderService {
         this.paymentMethodRepository = paymentMethodRepository;
     }
 
+    // chức năng đặt bàn gọi món tuần 5 của thiện
+    // <thiện>
     @Transactional
     public Order createOpenOrder(CheckoutRequestDTO request, String username) {
         if (request.getItems() == null || request.getItems().isEmpty()) {
@@ -79,8 +81,10 @@ public class OrderService {
         order.setTotalAmount(totalAmount);
         return orderRepository.save(order);
     }
+    // </thiện>
 
     // 2. Thêm hàm Xử lý Thanh toán chốt đơn
+    // <Sơn>
     @Transactional
     public void payOrder(Long orderId, Long paymentMethodId) {
         Order order = orderRepository.findById(orderId)
@@ -114,6 +118,8 @@ public class OrderService {
         }
         return null;
     }
+
+    // </Sơn>
 
     public List<Order> getAllOder() {
         return this.orderRepository.findAll();

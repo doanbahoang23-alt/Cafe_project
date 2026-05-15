@@ -63,83 +63,51 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td class="text-muted small">USR-001</td>
-                                                            <td class="fw-semibold" style="color: var(--text-dark);">
-                                                                admin_root
-                                                            </td>
-                                                            <td>Quản trị viên hệ thống</td>
-                                                            <td>
-                                                                <span class="badge bg-danger px-2 py-1">ADMIN</span>
-                                                            </td>
-                                                            <td class="text-end">
-                                                                <div class="btn-group">
-                                                                    <button type="button"
-                                                                        class="btn btn-outline-primary px-2 py-1"
-                                                                        title="Sửa">
-                                                                        <i class="bi bi-pencil"></i>
-                                                                    </button>
-                                                                    <button type="button"
-                                                                        class="btn btn-outline-danger px-2 py-1"
-                                                                        title="Xóa">
-                                                                        <i class="bi bi-trash"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td class="text-muted small">USR-002</td>
-                                                            <td class="fw-semibold" style="color: var(--text-dark);">
-                                                                nguyenvana
-                                                            </td>
-                                                            <td>Nguyễn Văn A</td>
-                                                            <td>
-                                                                <span class="badge bg-primary px-2 py-1">USER</span>
-                                                            </td>
-                                                            <td class="text-end">
-                                                                <div class="btn-group">
-                                                                    <button type="button"
-                                                                        class="btn btn-outline-primary px-2 py-1"
-                                                                        title="Sửa">
-                                                                        <i class="bi bi-pencil"></i>
-                                                                    </button>
-                                                                    <button type="button"
-                                                                        class="btn btn-outline-danger px-2 py-1"
-                                                                        title="Xóa">
-                                                                        <i class="bi bi-trash"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr class="table-active">
-                                                            <td class="text-muted small">USR-003</td>
-                                                            <td class="fw-semibold" style="color: var(--text-dark);">
-                                                                tranb</td>
-                                                            <td>
-                                                                Trần Thị B
-                                                                <span class="badge bg-warning text-dark ms-2">Đang
-                                                                    sửa</span>
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge bg-primary px-2 py-1">USER</span>
-                                                            </td>
-                                                            <td class="text-end">
-                                                                <div class="btn-group">
-                                                                    <button type="button"
-                                                                        class="btn btn-outline-primary px-2 py-1"
-                                                                        title="Sửa">
-                                                                        <i class="bi bi-pencil"></i>
-                                                                    </button>
-                                                                    <button type="button"
-                                                                        class="btn btn-outline-danger px-2 py-1"
-                                                                        title="Xóa">
-                                                                        <i class="bi bi-trash"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                        <c:forEach var="user" items="${users}">
+                                                            <tr>
+                                                                <td class="text-muted small">USR-${user.id}</td>
+                                                                <td class="fw-semibold"
+                                                                    style="color: var(--text-dark);">
+                                                                    ${user.username}
+                                                                </td>
+                                                                <td>${user.fullname}</td>
+                                                                <td>
+                                                                    <c:choose>
+                                                                        <c:when test="${user.role.name == 'ADMIN'}">
+                                                                            <span
+                                                                                class="badge bg-danger px-2 py-1">ADMIN</span>
+                                                                        </c:when>
+                                                                        <c:otherwise>
+                                                                            <span
+                                                                                class="badge bg-primary px-2 py-1">USER</span>
+                                                                        </c:otherwise>
+                                                                    </c:choose>
+                                                                </td>
+                                                                <td class="text-end">
+                                                                    <div class="btn-group">
+                                                                        <a href="/admin/employee/edit/${user.id}"
+                                                                            class="btn btn-outline-primary px-2 py-1"
+                                                                            title="Sửa">
+                                                                            <i class="bi bi-pencil"></i>
+                                                                        </a>
+                                                                        <a href="/admin/employee/delete/${user.id}"
+                                                                            class="btn btn-outline-danger px-2 py-1"
+                                                                            title="Xóa"
+                                                                            onclick="return confirm('Bạn có chắc muốn xóa nhân viên này?')">
+                                                                            <i class="bi bi-trash"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                        <c:if test="${empty users}">
+                                                            <tr>
+                                                                <td colspan="5" class="text-center text-muted py-4">
+                                                                    <i class="bi bi-person-x fs-1 d-block mb-2"></i>
+                                                                    Chưa có nhân viên nào
+                                                                </td>
+                                                            </tr>
+                                                        </c:if>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -152,32 +120,66 @@
                                         <div class="card-body d-flex flex-column">
                                             <div
                                                 class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
-                                                <h5 class="mb-0 fw-bold" style="color: var(--text-dark);">Thêm nhân viên
-                                                    mới
+                                                <h5 class="mb-0 fw-bold" style="color: var(--text-dark);">
+                                                    <c:choose>
+                                                        <c:when test="${user != null}">Chỉnh sửa nhân viên</c:when>
+                                                        <c:otherwise>Thêm nhân viên mới</c:otherwise>
+                                                    </c:choose>
                                                 </h5>
-                                                <button class="btn btn-outline-secondary px-2 py-1" type="button">
-                                                    <i class="bi bi-x-lg"></i> Hủy
-                                                </button>
+                                                <c:if test="${user != null}">
+                                                    <a href="/admin/employee"
+                                                        class="btn btn-outline-secondary px-2 py-1">
+                                                        <i class="bi bi-x-lg"></i> Hủy
+                                                    </a>
+                                                </c:if>
                                             </div>
 
-                                            <form id="employee-form" class="flex-grow-1 d-flex flex-column">
+                                            <!-- Success/Error Messages -->
+                                            <c:if test="${not empty successMessage}">
+                                                <div class="alert alert-success alert-dismissible fade show mb-3"
+                                                    role="alert">
+                                                    <i class="bi bi-check-circle-fill me-2"></i>${successMessage}
+                                                    <button type="button" class="btn-close"
+                                                        data-bs-dismiss="alert"></button>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${not empty errorMessage}">
+                                                <div class="alert alert-danger alert-dismissible fade show mb-3"
+                                                    role="alert">
+                                                    <i class="bi bi-exclamation-triangle-fill me-2"></i>${errorMessage}
+                                                    <button type="button" class="btn-close"
+                                                        data-bs-dismiss="alert"></button>
+                                                </div>
+                                            </c:if>
+
+                                            <form:form modelAttribute="user" method="post"
+                                                action="${user != null && user.id != null ? '/admin/employee/edit/' : '/admin/employee'}"
+                                                class="flex-grow-1 d-flex flex-column">
+                                                <c:if test="${user != null && user.id != null}">
+                                                    <form:hidden path="id" value="${user.id}" />
+                                                </c:if>
+
                                                 <div class="mb-3">
                                                     <label class="form-label fw-semibold"
                                                         style="color: var(--text-dark);">Tài
                                                         khoản</label>
-                                                    <input type="text" class="form-control" name="username" required
-                                                        placeholder="Nhập tên đăng nhập" />
+                                                    <form:input path="username" type="text" class="form-control"
+                                                        placeholder="Nhập tên đăng nhập" required="true" />
+                                                    <form:errors path="username" cssClass="text-danger small" />
                                                 </div>
 
                                                 <div class="mb-3">
                                                     <label class="form-label fw-semibold"
                                                         style="color: var(--text-dark);">Mật
                                                         khẩu</label>
-                                                    <input type="password" class="form-control" name="password" required
-                                                        placeholder="Nhập mật khẩu" />
+                                                    <form:password path="password" class="form-control"
+                                                        placeholder="${user != null && user.id != null ? 'Để trống nếu không đổi' : 'Nhập mật khẩu'}"
+                                                        required="${user == null || user.id == null}" />
+                                                    <form:errors path="password" cssClass="text-danger small" />
                                                     <div class="form-text mt-1"
                                                         style="color: var(--text-gray); font-size: 0.85rem;">
-                                                        (Để trống nếu không muốn đổi mật khẩu khi cập nhật)
+                                                        ${user != null && user.id != null ? '(Để trống nếu không muốn
+                                                        đổi mật khẩu)' : '(Bắt buộc nhập)'}
                                                     </div>
                                                 </div>
 
@@ -185,28 +187,35 @@
                                                     <label class="form-label fw-semibold"
                                                         style="color: var(--text-dark);">Họ
                                                         tên</label>
-                                                    <input type="text" class="form-control" name="fullname"
+                                                    <form:input path="fullname" type="text" class="form-control"
                                                         placeholder="VD: Nguyễn Văn A" />
+                                                    <form:errors path="fullname" cssClass="text-danger small" />
                                                 </div>
 
                                                 <div class="mb-4">
                                                     <label class="form-label fw-semibold"
                                                         style="color: var(--text-dark);">Vai
                                                         trò</label>
-                                                    <select class="form-select" name="role">
-                                                        <option value="USER">Nhân viên (USER)</option>
-                                                        <option value="ADMIN">Quản trị viên (ADMIN)</option>
+                                                    <select class="form-select" name="roleId" required>
+                                                        <c:forEach var="role" items="${roles}">
+                                                            <option value="${role.id}" ${user !=null &&
+                                                                user.role.id==role.id ? 'selected' : '' }>
+                                                                ${role.name == 'ADMIN' ? 'Quản trị viên (ADMIN)' : 'Nhân
+                                                                viên (USER)'}
+                                                            </option>
+                                                        </c:forEach>
                                                     </select>
                                                 </div>
 
                                                 <div class="d-grid gap-2 mt-auto pt-3">
-                                                    <button
-                                                        class="btn btn-success py-2 d-flex justify-content-center align-items-center gap-2"
-                                                        type="button">
-                                                        <i class="bi bi-person-plus-fill"></i> Thêm người dùng
+                                                    <button type="submit"
+                                                        class="btn ${user != null ? 'btn-warning' : 'btn-success'} py-2 d-flex justify-content-center align-items-center gap-2">
+                                                        <i
+                                                            class="bi ${user != null ? 'bi-pencil-square' : 'bi-person-plus-fill'}"></i>
+                                                        ${user != null ? 'Cập nhật' : 'Thêm người dùng'}
                                                     </button>
                                                 </div>
-                                            </form>
+                                            </form:form>
                                         </div>
                                     </div>
                                 </div>
