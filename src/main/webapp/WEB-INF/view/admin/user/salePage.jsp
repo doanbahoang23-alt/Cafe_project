@@ -189,8 +189,7 @@
 
                                     <!-- CỘT 2: THỰC ĐƠN BÊN NGOÀI (Đã khôi phục logic cũ, khóa click để dùng Modal) -->
                                     <div class="col-xl-5 col-lg-4">
-                                        <div class="card h-100 border-0 shadow-sm"
-                                            style="opacity: 0.8; pointer-events: none;">
+                                        <div class="card h-100 border-0 shadow-sm">
                                             <div class="card-body d-flex flex-column p-3">
                                                 <h6 class="mb-3 fw-bold" style="color: var(--text-dark);">Thực đơn</h6>
                                                 <div
@@ -233,6 +232,35 @@
                                                             </div>
                                                         </div>
                                                     </c:forEach>
+                                                    <c:if test="${totalPages > 1}">
+                                                        <div class="d-flex justify-content-center mt-3">
+                                                            <nav aria-label="Menu navigation">
+                                                                <ul class="pagination pagination-sm mb-0">
+                                                                    <li
+                                                                        class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+                                                                        <a class="page-link"
+                                                                            href="?page=${currentPage - 1}&categoryId=${categoryId}&keyword=${keyword}">
+                                                                            <i class="bi bi-chevron-left"></i>
+                                                                        </a>
+                                                                    </li>
+                                                                    <c:forEach begin="1" end="${totalPages}" var="i">
+                                                                        <li
+                                                                            class="page-item ${currentPage == i ? 'active' : ''}">
+                                                                            <a class="page-link ${currentPage == i ? 'bg-success border-success' : ''}"
+                                                                                href="?page=${i}&categoryId=${categoryId}&keyword=${keyword}">${i}</a>
+                                                                        </li>
+                                                                    </c:forEach>
+                                                                    <li
+                                                                        class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
+                                                                        <a class="page-link"
+                                                                            href="?page=${currentPage + 1}&categoryId=${categoryId}&keyword=${keyword}">
+                                                                            <i class="bi bi-chevron-right"></i>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </nav>
+                                                        </div>
+                                                    </c:if>
                                                 </div>
                                             </div>
                                         </div>
@@ -537,6 +565,39 @@
                                                         </div>
                                                     </c:forEach>
                                                 </div>
+                                                <c:if test="${totalPages > 1}">
+                                                    <div class="d-flex justify-content-center mt-4 mb-2">
+                                                        <nav aria-label="Modal product navigation">
+                                                            <ul class="pagination pagination-sm mb-0">
+                                                                <li
+                                                                    class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+                                                                    <a class="page-link text-success"
+                                                                        href="?page=${currentPage - 1}&categoryId=${categoryId}&keyword=${keyword}&openModal=true">
+                                                                        <i class="bi bi-chevron-left"></i>
+                                                                    </a>
+                                                                </li>
+
+                                                                <c:forEach begin="1" end="${totalPages}" var="i">
+                                                                    <li
+                                                                        class="page-item ${currentPage == i ? 'active' : ''}">
+                                                                        <a class="page-link ${currentPage == i ? 'bg-success border-success text-white' : 'text-success'}"
+                                                                            href="?page=${i}&categoryId=${categoryId}&keyword=${keyword}&openModal=true">
+                                                                            ${i}
+                                                                        </a>
+                                                                    </li>
+                                                                </c:forEach>
+
+                                                                <li
+                                                                    class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
+                                                                    <a class="page-link text-success"
+                                                                        href="?page=${currentPage + 1}&categoryId=${categoryId}&keyword=${keyword}&openModal=true">
+                                                                        <i class="bi bi-chevron-right"></i>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </nav>
+                                                    </div>
+                                                </c:if>
                                             </div>
                                         </div>
 

@@ -84,6 +84,15 @@ public class SecurityConfiguration {
                         .failureUrl("/login?error")
                         .successHandler(myAuthenticationSuccessHandler())
                         .permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout=true")
+                        .invalidateHttpSession(true) // Hủy session
+                        .deleteCookies("JSESSIONID") // Xóa cookie
+                        .permitAll())
+                .sessionManagement(session -> session
+                        .maximumSessions(1) // Chỉ cho phép đăng nhập trên 1 thiết bị
+                        .expiredUrl("/login?error=session_expired"))
                 .exceptionHandling(ex -> ex.accessDeniedPage("/deny"));
 
         return http.build();

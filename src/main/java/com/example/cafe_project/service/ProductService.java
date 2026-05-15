@@ -2,6 +2,8 @@ package com.example.cafe_project.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.cafe_project.domain.Product;
@@ -37,6 +39,23 @@ public class ProductService {
 
     public List<Product> getProductByCategoryId(int categoryId) {
         return this.productRepository.findByCategory_CategoryId(categoryId);
+    }
+
+    // điều phối, kiểm tra người dùng muốn làm gì
+    public Page<Product> getProductsWithFilterAndPagination(Integer categoryId, String keyword, Pageable pageable) {
+        boolean hasCategory = (categoryId != null);
+        boolean hasKeyword = (keyword != null && !keyword.trim().isEmpty());
+
+        if (hasCategory && hasKeyword) {
+            return productRepository.findByCategory_CategoryIdAndProductNameContainingIgnoreCase(categoryId, keyword,
+                    pageable);
+        } else if (hasCategory) {
+            return productRepository.findByCategory_CategoryId(categoryId, pageable);
+        } else if (hasKeyword) {
+            return productRepository.findByProductNameContainingIgnoreCase(keyword, pageable);
+        } else {
+            return productRepository.findAll(pageable);
+        }
     }
 
 }
