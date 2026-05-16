@@ -200,8 +200,18 @@ public class SaleController {
     @PostMapping("/pay-order")
     public String payOrder(@RequestParam Long orderId,
             @RequestParam Long paymentMethodId,
+            @RequestParam(required = false, defaultValue = "false") boolean isConfirmedQR,
             RedirectAttributes redirectAttributes) {
         try {
+
+            if (paymentMethodId == 2L && !isConfirmedQR) {
+
+                Order order = orderService.getOrderById(orderId);
+                Long tableId = order.getTable().getTableId();
+
+                return "redirect:/employee/product/sales?selectedTableId=" + tableId + "&showQrModal=true";
+            }
+
             orderService.payOrder(orderId, paymentMethodId);
             redirectAttributes.addFlashAttribute("successMessage", "Thanh toán thành công!");
         } catch (Exception e) {
