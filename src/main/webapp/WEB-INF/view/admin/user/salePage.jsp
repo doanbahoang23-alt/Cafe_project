@@ -394,6 +394,7 @@
                                                                         <span
                                                                             class="small text-secondary text-nowrap">Thanh
                                                                             toán:</span>
+
                                                                         <select id="paymentSelect"
                                                                             name="paymentMethodId"
                                                                             class="form-select form-select-sm fw-bold border-secondary shadow-sm"
@@ -402,6 +403,7 @@
                                                                             <option value="2">Bank (Chuyển khoản)
                                                                             </option>
                                                                         </select>
+
                                                                     </div>
                                                                 </div>
                                                                 <span class="fs-3 fw-bold text-success text-end"
@@ -416,8 +418,7 @@
                                                             <div class="d-grid gap-2 mt-3">
                                                                 <button
                                                                     class="btn btn-success py-2 fw-bold text-uppercase shadow-sm"
-                                                                    type="button" data-bs-toggle="modal"
-                                                                    data-bs-target="#qrModal">
+                                                                    type="submit">
                                                                     <i class="bi bi-check-circle me-1"></i> Đóng đơn
                                                                     (Thanh toán)
                                                                 </button>
@@ -456,12 +457,17 @@
                                     </div>
                                     <div class="small text-muted mb-4 fst-italic">Vui lòng bấm xác nhận sau khi khách
                                         hàng thanh toán thành công.</div>
-                                    <div class="d-grid gap-2">
-                                        <button type="submit" form="checkoutForm" class="btn btn-success fw-bold">Hoàn
-                                            Tất Thanh Toán</button>
+                                    <form action="/employee/product/sales/pay-order" method="POST" class="d-grid gap-2">
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                        <input type="hidden" name="orderId" value="${selectedOrder.orderID}" />
+                                        <input type="hidden" name="paymentMethodId" value="2" />
+                                        <input type="hidden" name="isConfirmedQR" value="true" />
+
+                                        <button type="submit" class="btn btn-success fw-bold">Hoàn Tất Thanh
+                                            Toán</button>
                                         <button type="button" class="btn btn-outline-secondary"
                                             data-bs-dismiss="modal">Hủy bỏ</button>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -700,6 +706,14 @@
                             document.addEventListener("DOMContentLoaded", function () {
                                 var myModal = new bootstrap.Modal(document.getElementById('createOrderModal'));
                                 myModal.show();
+                            });
+                        </script>
+                    </c:if>
+                    <c:if test="${param.showQrModal == 'true'}">
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                                var qrModal = new bootstrap.Modal(document.getElementById('qrModal'));
+                                qrModal.show();
                             });
                         </script>
                     </c:if>
